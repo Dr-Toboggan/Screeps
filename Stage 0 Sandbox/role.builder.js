@@ -21,12 +21,13 @@ var roleBuilder = {
             }
         }
         else {
-            var sources = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+            var containersWithEnergy = creep.room.find(FIND_STRUCTURES, {filter: (i) => i.structureType == STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] > 0});
+                
+            
+            if(creep.withdraw(containersWithEnergy[0], RESOURCE_ENERGY, [100]) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(containersWithEnergy[0], {visualizePathStyle: {stroke: '#ffaa00'}});
             }
         }
-        
     }
 };
 
